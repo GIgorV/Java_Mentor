@@ -44,12 +44,16 @@ public class Calculations {
 //        }
 
         for (int i = 0; i < expressions.length; i++) {
-            try{
-            codeOfAscii = expressions[i].charAt(0);
-            if (codeOfAscii >= 48 && codeOfAscii <= 57) {
-                value[i] = Integer.parseInt(expressions[i]);
-            }
-        }catch (StringIndexOutOfBoundsException e){
+            try {
+                codeOfAscii = expressions[i].charAt(0);
+                if (codeOfAscii >= 48 && codeOfAscii <= 57) {
+                    value[i] = Integer.parseInt(expressions[i]);
+                }
+                if (codeOfAscii >= 65 && codeOfAscii <= 122) {
+                    Transformations transformations = new Transformations();
+                    value[i] = transformations.convertFromRoman(expressions[i]);
+                }
+            } catch (StringIndexOutOfBoundsException e) {
                 System.out.println("Не достаточно данных для расчета или вы остановили выполнение программы");
                 System.exit(0);
             }

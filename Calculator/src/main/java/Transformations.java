@@ -37,13 +37,13 @@ public class Transformations {
 
     int result = 0;
 
-    public int convertFromRoman(char[] chars) {
-        for (int i = 0; i < chars.length; i++) {
-            codeOfAscii = chars[i];
+    public int convertFromRoman(String message) {
+        for (int i = 0; i < message.length(); i++) {
+            codeOfAscii = message.codePointAt(i);
 //            System.out.print(chars[i]);
             if (codeOfAscii == 73 || codeOfAscii == 86 || codeOfAscii == 88 || codeOfAscii == 76
                     || codeOfAscii == 67 || codeOfAscii == 68 || codeOfAscii == 77) {
-                roman += (char) (chars[i]);
+                roman += (char) (message.codePointAt(i));
             } else {
                 break;
             }
