@@ -6,7 +6,7 @@
 
     <groupId>GIgorV</groupId>
     <artifactId>Calculator</artifactId>
-    <version>5</version>
+    <version>9</version>
 
     <build>
         <plugins>

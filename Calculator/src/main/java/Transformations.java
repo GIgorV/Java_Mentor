@@ -1,63 +1,89 @@
-import lombok.*;
 
-import java.util.HashMap;
-import java.util.Map;
-
-@Builder
-@ToString
-@Getter
-@Setter
-//@NoArgsConstructor
-@AllArgsConstructor
 
 public class Transformations {
-    private int value1;
-    private int value2;
-    private int counter = 0;
-    private int codeOfAscii;
-    private String operation;
     private String roman = "";
 
-    Map<String, Integer> v = new HashMap<>();
-
-    public Transformations() {
-        v.put("IV", 4);
-        v.put("IX", 9);
-        v.put("XL", 40);
-        v.put("CD", 400);
-        v.put("CM", 900);
-        v.put("C", 100);
-        v.put("M", 1000);
-        v.put("I", 1);
-        v.put("V", 5);
-        v.put("X", 10);
-        v.put("L", 50);
-        v.put("D", 500);
+    private static int letterToNumber(char letter) {
+        switch (letter) {
+            case 'M':
+                return 1000;
+            case 'D':
+                return 500;
+            case 'C':
+                return 100;
+            case 'L':
+                return 50;
+            case 'X':
+                return 10;
+            case 'V':
+                return 5;
+            case 'I':
+                return 1;
+            default:
+                return 0;
+        }
     }
 
-    int result = 0;
+    public static int convertRomanToInt(String romanNumeral) {
+        int result = 0;
+        String uRoman = romanNumeral.toUpperCase(); //case-insensitive
+        for (int i = 0; i < uRoman.length() - 1; i++) {//loop over all but the last character
+            if (letterToNumber(uRoman.charAt(i)) < letterToNumber(uRoman.charAt(i + 1))) {
+                result -= letterToNumber(uRoman.charAt(i));
+            } else {
+                result += letterToNumber(uRoman.charAt(i));
+            }
+        }
+        result += letterToNumber(uRoman.charAt(uRoman.length() - 1));
+        return result;
+    }
 
-    public int convertFromRoman(String message) {
-        for (int i = 0; i < message.length(); i++) {
-            codeOfAscii = message.codePointAt(i);
-//            System.out.print(chars[i]);
+    public int result(String messageRoman) {
+        for (int i = 0; i < messageRoman.length(); i++) {
+            int codeOfAscii = messageRoman.codePointAt(i);
             if (codeOfAscii == 73 || codeOfAscii == 86 || codeOfAscii == 88 || codeOfAscii == 76
                     || codeOfAscii == 67 || codeOfAscii == 68 || codeOfAscii == 77) {
-                roman += (char) (message.codePointAt(i));
+                roman += (char) (messageRoman.codePointAt(i));
             } else {
                 break;
             }
         }
-        for (String s : v.keySet()) {
-            result += countOccurrences(roman, s) * v.get(s);
-            roman = roman.replaceAll(s, "");
+        return convertRomanToInt(roman);
+    }
+
+    static int[] numbers = {1, 4, 5, 9, 10, 50, 100, 500, 1000};
+    static String[] letters = {"I", "IV", "V", "IX", "X", "L", "C", "D", "M"};
+
+    public static String convertIntegerToRoman(int number) {
+        String romanValue = "";
+        int N = number;
+        while (N > 0) {
+            for (int i = 0; i < numbers.length; i++) {
+                if (N < numbers[i]) {
+                    N -= numbers[i - 1];
+                    romanValue += letters[i - 1];
+                    break;
+                }
+            }
         }
-//        System.out.println(result);
-        return result;
+        return romanValue;
     }
-
-    public static int countOccurrences(String main, String sub) {
-        return (main.length() - main.replace(sub, "").length()) / sub.length();
-    }
-
 }
+//    static int last = 2000;
+//    public static int convertRomanToInt(String romanNumeral) throws NumberFormatException {
+//
+//        int integerValue = 0;
+//        for (int i = 0; i < romanNumeral.length(); i++) {
+//            char ch = romanNumeral.charAt(i);
+//            int number = letterToNumber(ch);
+//            if (number == -1) {
+//                throw new NumberFormatException("Invalid format");
+//            }
+//            if (last<number){
+//			number-=last;
+//			integerValue += number;
+//			last = number;}
+//        }
+//        return integerValue;
+//    }
+
