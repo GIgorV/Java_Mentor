@@ -1,10 +1,11 @@
+import java.util.Arrays;
 
 public class Operations {
     private final int[] value = new int[2];
     private String operation;
     private String[] expressions;
-    int count;
     int resultInt;
+    String[] testOfReiteration = new String[2];
 
     public void result(String messageFromConsole) {
         int codeOfAscii;
@@ -30,20 +31,23 @@ public class Operations {
         try {
             for (int i = 0; i < expressions.length; i++) {
                 codeOfAscii = expressions[i].charAt(0);
-                if (codeOfAscii >= 48 && codeOfAscii <= 57) {
+                if (codeOfAscii >= 48 & codeOfAscii <= 57) {
                     value[i] = Integer.parseInt(expressions[i]);
-                    count++;
+                    testOfReiteration[i] = "int";
                 }
-                if (codeOfAscii >= 65 && codeOfAscii <= 122) {
+                if (codeOfAscii >= 65 & codeOfAscii <= 122) {
                     Transformations transformations = new Transformations();
                     value[i] = transformations.result(expressions[i]);
+                    testOfReiteration[i] = "roman";
                 }
             }
         } catch (StringIndexOutOfBoundsException | NullPointerException e) {
             System.out.println("Не достаточно данных для расчета или вы остановили выполнение программы");
             System.exit(0);
         }
-        calculation(operation);
+        if (testOfReiteration[0].equals(testOfReiteration[1])) {
+            calculation(operation);
+        } else throw new IllegalArgumentException("Введенные данные имеют разный тип цифр");
 
         codeOfAscii = expressions[0].charAt(0);
         if (codeOfAscii >= 48 && codeOfAscii <= 57) {
@@ -51,8 +55,8 @@ public class Operations {
         } else {
             System.out.println(Transformations.convertIntegerToRoman(resultInt));
         }
-        value[0] = 0;
-        value[1] = 0;
+        Arrays.fill(value, 0);
+        Arrays.fill(expressions, "");
     }
 
     void calculation(String operation) {
