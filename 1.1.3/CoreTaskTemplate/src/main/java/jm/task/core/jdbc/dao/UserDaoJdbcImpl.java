@@ -11,18 +11,10 @@ import java.util.Map;
 
 public class UserDaoJdbcImpl extends Util implements UserDao {
 
-    public UserDaoJdbcImpl() {
-    }
-
     private final Connection connection = getConnection();
 
-    private static final RowMapper<User> baseUserRowMapper = row ->
-            User.builder()
-                    .id(row.getLong("id"))
-                    .name(row.getString("firstName"))
-                    .lastName(row.getString("lastName"))
-                    .age(row.getInt("age"))
-                    .build();
+    public UserDaoJdbcImpl() {
+    }
 
     public void createUsersTable() {
         PreparedStatement statement;
@@ -85,7 +77,16 @@ public class UserDaoJdbcImpl extends Util implements UserDao {
             statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery("SELECT * FROM service_user;");
             while (resultSet.next()) {
-                result.add(baseUserRowMapper.mapRow(resultSet));
+                result.add(User.builder()
+                        .id(resultSet.getLong("id"))
+                        .name(resultSet.getString("firstName"))
+                        .lastName(resultSet.getString("lastName"))
+                        .age(resultSet.getInt("age"))
+                        .build());
+                //RowMapper (функциональный interface) никак не связан с сторонней библиотекой lambok.
+                //забегая вперед, думал пригодится, что бы не городить огород из resultSet-ов
+                //кто же знал, что уже на следующем задании нам будут не нужны ни SQL-запросы, ни resultSet
+                //Hibernate имею в виду)
             }
         } catch (SQLException e) {
 //            throw new IllegalArgumentException(e);
