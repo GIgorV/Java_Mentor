@@ -9,7 +9,6 @@ public class Application {
 
     public static void main(String[] args) {
         ApplicationContext applicationContext =
-//                new AnnotationConfigApplicationContext("ru.javamentor.spring-beans.app");
                 new AnnotationConfigApplicationContext(AppConfig.class);
         AnimalsCage bean =
                 applicationContext.getBean(AnimalsCage.class);
