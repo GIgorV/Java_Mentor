@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>ru.javamentor</groupId>
-    <artifactId>spring-helloworld</artifactId>
+    <artifactId>spring-beans</artifactId>
     <version>1.0-SNAPSHOT</version>
 
     <properties>
@@ -17,8 +17,13 @@
     <dependencies>
         <dependency>
             <groupId>org.springframework</groupId>
+            <artifactId>spring-core</artifactId>
+            <version>5.2.3.RELEASE</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
             <artifactId>spring-context</artifactId>
-            <version>5.2.0.RELEASE</version>
+            <version>5.2.3.RELEASE</version>
         </dependency>
 
         <dependency>
@@ -34,6 +39,6 @@
             <version>3.1.1.0</version>
             <scope>test</scope>
         </dependency>
-
     </dependencies>
+
 </project>
