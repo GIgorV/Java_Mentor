@@ -9,7 +9,7 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Car {
-    private int id;
+    private Long id;
     private String model;
     private String number;
 }
