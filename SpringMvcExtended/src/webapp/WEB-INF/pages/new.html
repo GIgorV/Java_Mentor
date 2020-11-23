@@ -9,6 +9,14 @@
     <label for="firstName">Enter FirstName: </label>
     <input type="text" th:field="*{firstName}" id="firstName">
     <div style="color: red" th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}">Name error</div>
+
+    <label for="lastName">Enter LastName: </label>
+    <input type="text" th:field="*{lastName}" id="lastName">
+    <div style="color: red" th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}">Name error</div>
+
+    <label for="age">Enter Age: </label>
+    <input type="text" th:field="*{age}" id="age">
+    <div style="color: red" th:if="${#fields.hasErrors('age')}" th:errors="*{age}">Name error</div>
     <br/>
     <input type="submit" value="Create!"/>
 </form>

@@ -10,6 +10,7 @@ import ru.gigorv.web.models.User;
 import ru.gigorv.web.service.UserService;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @Controller
 @RequestMapping("/users")
@@ -21,13 +22,14 @@ public class UsersController {
     @GetMapping
     public String getAllUsers(Model model) {
         model.addAttribute("users", userService.getAll());
-        userService.getAll().forEach(System.out::println);
+//        userService.getAll().forEach(System.out::println);
         return "pages/users";
     }
 
     @GetMapping("/{id}")
     public String findUserById(@PathVariable("id") Long id, Model model) {
-        model.addAttribute("users", userService.get(id));
+        model.addAttribute("user", userService.get(id));
+
         return "pages/user";
     }
 
@@ -40,7 +42,7 @@ public class UsersController {
     @PostMapping() //по url /users мы должны попасть в этот метод
     //здесь будет новый пользователь из формы "new"
     public String create(@ModelAttribute("user") @Valid User user, BindingResult bindingResult) {
-        if(bindingResult.hasErrors()) return "users/new";
+        if (bindingResult.hasErrors()) return "users/new";
         userService.save(user);
         return "redirect:/users";
     }
@@ -56,14 +58,13 @@ public class UsersController {
     @PatchMapping("/{id}")
     //принимаем объект из формы редактирования
     public String update(@ModelAttribute("user") @Valid User user, BindingResult bindingResult, @PathVariable("id") Long id) {
-        if(bindingResult.hasErrors()) return "users/edit";
-    //ищем пользователя с указанным id и обновить его поля значениями, которые пришли из формы
+        if (bindingResult.hasErrors()) return "users/edit";
         userService.update(id, user);
         return "redirect:/users";
     }
 
     @DeleteMapping("/{id}")
-    public String delete(@PathVariable("id") Long id){
+    public String delete(@PathVariable("id") Long id) {
         userService.delete(id);
         return "redirect:/users";
     }
