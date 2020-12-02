@@ -1,17 +1,27 @@
 package ru.gigorv.web.dao;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
+import ru.gigorv.web.models.Role;
 import ru.gigorv.web.models.User;
 
 import javax.persistence.*;
+import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 
 @Repository
 public class UserDao implements Dao {
 
     @PersistenceContext
     private EntityManager entityManager;
+
+    @Override
+    public User getUserByName(String name) {
+        return entityManager.createQuery(
+                "from User u WHERE u.name =:name", User.class).setParameter("name", name).getSingleResult();
+    }
 
     @Override
     public List<User> getAll() {
@@ -27,8 +37,9 @@ public class UserDao implements Dao {
 
     @Override
     @Transactional
-    public void save(User user) {
+    public boolean save(User user) {
         entityManager.persist(user);
+        return true;
     }
 
     @Override

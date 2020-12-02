@@ -1,20 +1,22 @@
 package ru.gigorv.web.configuration;
 
+import org.springframework.context.annotation.Import;
 import org.springframework.web.WebApplicationInitializer;
 import org.springframework.web.context.ContextLoaderListener;
 import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
 import org.springframework.web.filter.HiddenHttpMethodFilter;
 import org.springframework.web.servlet.DispatcherServlet;
+import ru.gigorv.web.security.SecurityConfig;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRegistration;
 
 // класс, заменяющий web.xml
-
 public class WebAppInitializer implements WebApplicationInitializer {
 
     // что происходит при запуске приложения в tomcat?
+
     @Override
     public void onStartup(ServletContext servletContext) throws ServletException {
         // создаем специальный объект-контекст для веб приложений

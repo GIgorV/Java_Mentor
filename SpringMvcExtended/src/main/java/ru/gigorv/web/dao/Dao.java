@@ -8,7 +8,8 @@ public interface Dao {
 //   Optional<User> get(Long id);
    User get(Long id);
    List<User> getAll();
-   void save(User user);
+   boolean save(User user);
    void update(Long id, User user);
    void delete(Long id);
+   User getUserByName(String name);
 }

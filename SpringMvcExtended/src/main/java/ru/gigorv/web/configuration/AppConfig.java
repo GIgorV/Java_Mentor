@@ -1,13 +1,10 @@
 package ru.gigorv.web.configuration;
 
+import com.zaxxer.hikari.HikariDataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.PropertySource;
+import org.springframework.context.annotation.*;
 import org.springframework.core.env.Environment;
-import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.Database;
@@ -20,10 +17,10 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.thymeleaf.spring5.SpringTemplateEngine;
 import org.thymeleaf.spring5.templateresolver.SpringResourceTemplateResolver;
 import org.thymeleaf.spring5.view.ThymeleafViewResolver;
+import ru.gigorv.web.security.SecurityConfig;
 
 import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
-import java.util.Objects;
 import java.util.Properties;
 
 @Configuration
@@ -31,6 +28,7 @@ import java.util.Properties;
 @EnableWebMvc
 @ComponentScan("ru.gigorv.web")
 @EnableTransactionManagement
+@Import(SecurityConfig.class)
 public class AppConfig implements WebMvcConfigurer {
 
     @Autowired
@@ -38,12 +36,13 @@ public class AppConfig implements WebMvcConfigurer {
 
     @Bean
     public DataSource getDataSource() {
-        DriverManagerDataSource dataSource = new DriverManagerDataSource();
-        dataSource.setDriverClassName(Objects.requireNonNull(environment.getProperty("db.driver")));
-        dataSource.setUrl(environment.getProperty("db.url"));
-        dataSource.setUsername(environment.getProperty("db.username"));
-        dataSource.setPassword(environment.getProperty("db.password"));
-        return dataSource;
+        HikariDataSource hikariDataSource = new HikariDataSource();
+        hikariDataSource.setJdbcUrl(environment.getProperty("db.url"));
+        hikariDataSource.setDriverClassName(environment.getProperty("db.driver"));
+        hikariDataSource.setUsername(environment.getProperty("db.username"));
+        hikariDataSource.setPassword(environment.getProperty("db.password"));
+        hikariDataSource.setMaximumPoolSize(20);
+        return hikariDataSource;
     }
 
     @Bean

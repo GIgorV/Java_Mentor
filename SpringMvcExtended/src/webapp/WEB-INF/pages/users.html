@@ -6,12 +6,15 @@
 </head>
 <body>
 <div th:each="user : ${users}">
-    <a th:href="@{/users/{id}(id=${user.getId()})}" th:text="${user.getFirstName()}">user</a>
-    <a th:href="@{/users/{id}(id=${user.getId()})}" th:text="${user.getLastName()}">user</a>
-    <a th:href="@{/users/{id}(id=${user.getId()})}" th:text="${user.getAge()}">user</a>
+    <a th:href="@{/admin/users/{id}(id=${user.getId()})}" th:text="${user.getName()}">user</a>
+<!--    <a th:href="@{/users/{id}(id=${user.getId()})}" th:text="${user.getName()}">user</a>-->
+<!--    <a th:href="@{/users/{id}(id=${user.getId()})}" th:text="${user.getPassword()}">user</a>-->
+<!--    <a th:href="@{/users/{id}(id=${user.getId()})}" th:text="${user.getRoles()}">user</a>-->
 </div>
 <br/>
 <hr/>
-<a href="/users/new">Create new user</a>
+<a href="/admin/users/new">Create new user</a>
+<br/>
+<a th:href="@{/logout}">Logout</a>
 </body>
 </html>
