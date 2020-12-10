@@ -2,10 +2,14 @@ package ru.gigorv.web.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import ru.gigorv.web.models.Role;
 import ru.gigorv.web.models.User;
+import ru.gigorv.web.repositories.RolesRepository;
 import ru.gigorv.web.repositories.UsersRepository;
 
+import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UsersServiceImpl implements UsersService {
@@ -24,16 +28,28 @@ public class UsersServiceImpl implements UsersService {
 
     @Override
     public User findUserById(Long id) {
-        return null;
+        Optional<User> userFromDb = usersRepository.findById(id);
+        return userFromDb.orElse(new User());
     }
 
     @Override
-    public void save(User user) {
-
+    public boolean save(User user) {
+        User userFromDB = usersRepository.findByName(user.getUsername());
+        if (userFromDB != null) {
+            return false;
+        }
+        user.setRoles(Collections.singleton(new Role(2L, "ROLE_USER")));
+//        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+        usersRepository.saveAndFlush(user);
+        return true;
     }
 
     @Override
-    public void deleteUserById(Long id) {
-
+    public boolean deleteUserById(Long id) {
+        if (usersRepository.findById(id).isPresent()) {
+            usersRepository.deleteById(id);
+            return true;
+        }
+        return false;
     }
 }

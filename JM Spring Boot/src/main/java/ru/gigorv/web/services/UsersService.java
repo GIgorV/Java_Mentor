@@ -8,6 +8,6 @@ public interface UsersService {
     List<User> getAllUsers();
     User findUserByName(String name);
     User findUserById(Long id);
-    void save(User user);
-    void deleteUserById(Long id);
+    boolean save(User user);
+    boolean deleteUserById(Long id);
 }
