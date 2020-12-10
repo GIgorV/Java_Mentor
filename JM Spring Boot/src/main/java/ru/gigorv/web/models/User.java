@@ -8,6 +8,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.Set;
 
 @Data
@@ -30,20 +31,8 @@ public class User implements UserDetails {
     @Size(min = 2, max = 30, message = "LastName should be between 2 and 30 characters")
     private String password;
 
-//    @Column(name = "age")
-//    @Min(value = 0, message = "Age should be greater than 0")
-//    private Integer age;
-
-//    public User(String name, String password, Set<Role> roles) {
-//        this.name = name;
-//        this.password = password;
-//        this.age = age;
-//        this.roles = roles;
-//    }
-
-    //    @ManyToMany(fetch = FetchType.LAZY)
-//    @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
     @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "users_roles", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles;
 
     @Override
