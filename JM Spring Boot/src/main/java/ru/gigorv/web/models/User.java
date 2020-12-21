@@ -5,10 +5,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.Size;
 import java.util.Collection;
-import java.util.HashSet;
 import java.util.Set;
 
 @Data
@@ -20,15 +17,19 @@ import java.util.Set;
 public class User implements UserDetails {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @NotEmpty(message = "Name should not be empty")
-    @Size(min = 2, max = 30, message = "Name should be between 2 and 30 characters")
-    private String name;
+    @Column(name = "first_name")
+    private String firstName;
 
-    @NotEmpty(message = "LastName should not be empty")
-    @Size(min = 2, max = 30, message = "LastName should be between 2 and 30 characters")
+    @Column(name = "last_name")
+    private String lastName;
+
+    private Integer age;
+
+    private String email;
+
     private String password;
 
     @ManyToMany(fetch = FetchType.EAGER)
@@ -36,7 +37,7 @@ public class User implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return getRoles();
+        return roles;
     }
 
     @Override
@@ -46,7 +47,7 @@ public class User implements UserDetails {
 
     @Override
     public String getUsername() {
-        return name;
+        return email;
     }
 
     @Override

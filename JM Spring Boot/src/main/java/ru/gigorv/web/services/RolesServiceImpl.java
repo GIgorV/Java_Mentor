@@ -13,6 +13,6 @@ public class RolesServiceImpl implements RolesService {
 
     @Override
     public Role getRoleById(Long id) {
-        return rolesRepository.getOne(id);
+        return rolesRepository.findById(id).get();
     }
 }

@@ -1,10 +1,11 @@
 package ru.gigorv.web.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import ru.gigorv.web.models.Role;
 import ru.gigorv.web.models.User;
-import ru.gigorv.web.repositories.RolesRepository;
 import ru.gigorv.web.repositories.UsersRepository;
 
 import java.util.Collections;
@@ -22,8 +23,8 @@ public class UsersServiceImpl implements UsersService {
     }
 
     @Override
-    public User findUserByName(String name) {
-        return usersRepository.findByName(name);
+    public User findUserByEmail(String email) {
+        return usersRepository.findByEmail(email);
     }
 
     @Override
@@ -34,7 +35,7 @@ public class UsersServiceImpl implements UsersService {
 
     @Override
     public boolean save(User user) {
-        User userFromDB = usersRepository.findByName(user.getUsername());
+        User userFromDB = usersRepository.findByEmail(user.getUsername());
         if (userFromDB != null) {
             return false;
         }
@@ -51,5 +52,10 @@ public class UsersServiceImpl implements UsersService {
             return true;
         }
         return false;
+    }
+
+    @Override
+    public void deleteUser(User user) {
+            usersRepository.delete(user);
     }
 }

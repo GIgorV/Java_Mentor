@@ -1,0 +1,20 @@
+body{
+    height: 2000px;
+}
+
+.header{
+    position: relative;
+}
+.cover{
+    background: rgba(0, 0, 0, 0.8);
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+.content{
+    position: relative;
+    z-index: 2;
+}
+

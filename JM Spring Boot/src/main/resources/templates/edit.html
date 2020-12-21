@@ -6,10 +6,19 @@
 </head>
 <body>
 <form th:method="PATCH" th:action="@{/users/edit/{id}(id=${user.getId()})}" th:object="${user}">
-    <label for="name">Enter Name: </label>
-    <input type="text" th:field="*{name}" id="name">
+    <label for="firstName">Enter First Name: </label>
+    <input type="text" th:field="*{firstName}" id="firstName">
 
-    <label for="password">Enter LastName: </label>
+    <label for="lastName">Enter Last Name: </label>
+    <input type="text" th:field="*{lastName}" id="lastName">
+
+    <label for="age">Enter Age: </label>
+    <input type="text" th:field="*{age}" id="age">
+
+    <label for="email">Enter Email: </label>
+    <input type="text" th:field="*{email}" id="email">
+
+    <label for="password">Enter Password: </label>
     <input type="text" th:field="*{password}" id="password">
 
     <label for="role">Enter Role: </label>
