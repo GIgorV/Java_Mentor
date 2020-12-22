@@ -91,9 +91,82 @@
                                                                 type="button">Edit
                                                         </button>
                                                     </div>
-                                                    <!--                                                    <a th:href="@{admin/findOne/(id=${user.id})}" class="btn btn-primary eBtn" data-toggle="modal" data-target="#exampleModal">Edit</a>-->
-                                                    <!--                                                    <form th:action="@{/admin/save}" method="post">-->
-
+                                                    <div class="modal fade" id="EditModal" tabindex="-1" role="dialog"
+                                                         aria-hidden="true" th:attrappend="id=${user.id}">
+                                                        <div class="modal-dialog" role="document">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <h5 class="modal-title" id="exampleModalLabel">Edit
+                                                                        user</h5>
+                                                                    <button type="button" class="close"
+                                                                            data-dismiss="modal" aria-label="Close">
+                                                                        <span aria-hidden="true">&times;</span>
+                                                                    </button>
+                                                                </div>
+                                                                <form th:method="POST" th:action="@{admin/save}"
+                                                                      th:object="${user}">
+                                                                    <div class="modal-body">
+                                                                        <div class="form-group">
+                                                                            <div class="text center">
+                                                                                <strong>ID</strong><br>
+                                                                                <input class="form-control" readonly
+                                                                                       type="number" name="id"
+                                                                                       th:value="${user.id}">
+                                                                            </div>
+                                                                            <div class="text center">
+                                                                                <strong>First Name</strong><br>
+                                                                                <input class="form-control" required
+                                                                                       type="text" name="firstName"
+                                                                                       th:value="${user.firstName}">
+                                                                            </div>
+                                                                            <div class="text center">
+                                                                                <strong>Last Name</strong><br>
+                                                                                <input class="form-control" required
+                                                                                       type="text" name="lastName"
+                                                                                       th:value="${user.lastName}">
+                                                                            </div>
+                                                                            <div class="text center">
+                                                                                <strong>Age</strong><br>
+                                                                                <input class="form-control" required
+                                                                                       type="number" name="age"
+                                                                                       th:value="${user.age}">
+                                                                            </div>
+                                                                            <div class="text center">
+                                                                                <strong>Email</strong><br>
+                                                                                <input class="form-control" required
+                                                                                       type="email" name="email"
+                                                                                       th:value="${user.email}">
+                                                                            </div>
+                                                                            <div class="text center">
+                                                                                <strong>Password</strong><br>
+                                                                                <input class="form-control" required
+                                                                                       type="password" name="id"
+                                                                                       th:value="${user.id}">
+                                                                            </div>
+                                                                            <!--                    <div class="form-group">-->
+                                                                            <!--                        <label for="ePassword">Password</label>-->
+                                                                            <!--                        <input type="text"-->
+                                                                            <!--                               th:field="${user.password}"-->
+                                                                            <!--                               class="form-control" id="ePassword"-->
+                                                                            <!--                               placeholder="Password">-->
+                                                                            <!--                    </div>-->
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="modal-footer">
+                                                                        <button type="button" class="btn btn-secondary"
+                                                                                data-dismiss="modal">Close
+                                                                        </button>
+                                                                        <input type="submit" class="btn btn-primary"
+                                                                               value="Edit">
+                                                                    </div>
+                                                                </form>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <!--                                                    <a th:href="@{admin/findOne/(id=${user.id})}" class="btn btn-primary eBtn" data-toggle="modal" data-target="#exampleModal">Edit</a>-->
+                                                <!--                                                    <form th:action="@{/admin/save}" method="post">-->
+                                                <td>
                                                     <div class="text-left">
                                                         <button type="button" class="btn btn-danger" data-toggle="modal"
                                                                 th:data-target="${'#delModal' + user.id}">Delete
@@ -115,40 +188,40 @@
                                                                 <div class="modal-body">
                                                                     <div class="form-group">
                                                                         <label for="id">Id</label>
-                                                                        <input type="text" th:field="${user.id}"
+                                                                        <input type="text" th:value="${user.id}"
                                                                                class="form-control" id="id"
                                                                                placeholder="id">
                                                                     </div>
                                                                     <div class="form-group">
                                                                         <label for="firstName">First Name</label>
                                                                         <input type="text"
-                                                                               th:field="${user.firstName}"
+                                                                               th:value="${user.firstName}"
                                                                                class="form-control" id="firstName"
                                                                                placeholder="firstName">
                                                                     </div>
                                                                     <div class="form-group">
                                                                         <label for="lastName">Last Name</label>
                                                                         <input type="text"
-                                                                               th:field="${user.lastName}"
+                                                                               th:value="${user.lastName}"
                                                                                class="form-control" id="lastName"
                                                                                placeholder="lastName">
                                                                     </div>
                                                                     <div class="form-group">
                                                                         <label for="age">Age</label>
-                                                                        <input type="text" th:field="${user.age}"
+                                                                        <input type="text" th:value="${user.age}"
                                                                                class="form-control" id="age"
                                                                                placeholder="age">
                                                                     </div>
                                                                     <div class="form-group">
                                                                         <label for="email">Email</label>
-                                                                        <input type="text" th:field="${user.email}"
+                                                                        <input type="text" th:value="${user.email}"
                                                                                class="form-control" id="email"
                                                                                placeholder="email">
                                                                     </div>
                                                                     <div class="form-group">
                                                                         <label for="password">Password</label>
                                                                         <input type="text"
-                                                                               th:field="${user.password}"
+                                                                               th:value="${user.password}"
                                                                                class="form-control" id="password"
                                                                                placeholder="password">
                                                                     </div>
@@ -289,60 +362,6 @@
     </div>
 </section>
 
-<div class="modal fade" id="EditModal" tabindex="-1" role="dialog"
-     aria-hidden="true" th:attrappend="id=${user.id}">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Edit user</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <form th:method="POST" th:action="@{admin/save}" th:object="${user}">
-            <div class="modal-body">
-                    <div class="form-group">
-                        <div class="text center">
-                            <strong>ID</strong><br>
-                            <input class="form-control" readonly type="number" name="id" th:value="${user.id}">
-                        </div>
-                        <div class="text center">
-                            <strong>First Name</strong><br>
-                            <input class="form-control" required type="text" name="firstName" th:value="${user.firstName}">
-                        </div>
-                        <div class="text center">
-                        <strong>Last Name</strong><br>
-                        <input class="form-control" required type="text" name="lastName" th:value="${user.lastName}">
-                        </div>
-                        <div class="text center">
-                            <strong>Age</strong><br>
-                            <input class="form-control" required type="number" name="age" th:value="${user.age}">
-                        </div>
-                        <div class="text center">
-                            <strong>Email</strong><br>
-                            <input class="form-control" required type="email" name="email" th:value="${user.email}">
-                        </div>
-                        <div class="text center">
-                            <strong>Password</strong><br>
-                            <input class="form-control" required type="password" name="id" th:value="${user.id}">
-                        </div>
-                        <!--                    <div class="form-group">-->
-                        <!--                        <label for="ePassword">Password</label>-->
-                        <!--                        <input type="text"-->
-                        <!--                               th:field="${user.password}"-->
-                        <!--                               class="form-control" id="ePassword"-->
-                        <!--                               placeholder="Password">-->
-                        <!--                    </div>-->
-                    </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <input type="submit" class="btn btn-primary" value="Edit">
-            </div>
-            </form>
-        </div>
-    </div>
-</div>
 
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
