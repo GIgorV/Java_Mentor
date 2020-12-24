@@ -39,7 +39,7 @@ public class UsersServiceImpl implements UsersService {
         if (userFromDB != null) {
             return false;
         }
-        user.setRoles(Collections.singleton(new Role(2L, "ROLE_USER")));
+//        user.setRoles(Collections.singleton(new Role(2L, "ROLE_USER")));
 //        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         usersRepository.saveAndFlush(user);
         return true;
@@ -55,7 +55,7 @@ public class UsersServiceImpl implements UsersService {
     }
 
     @Override
-    public void deleteUser(User user) {
-            usersRepository.delete(user);
+    public void updateUser(User user) {
+        usersRepository.save(user);
     }
 }

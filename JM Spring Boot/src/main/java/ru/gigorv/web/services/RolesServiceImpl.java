@@ -5,6 +5,8 @@ import org.springframework.stereotype.Service;
 import ru.gigorv.web.models.Role;
 import ru.gigorv.web.repositories.RolesRepository;
 
+import java.util.List;
+
 @Service
 public class RolesServiceImpl implements RolesService {
 
@@ -14,5 +16,10 @@ public class RolesServiceImpl implements RolesService {
     @Override
     public Role getRoleById(Long id) {
         return rolesRepository.findById(id).get();
+    }
+
+    @Override
+    public List<Role> getRoles() {
+        return rolesRepository.findAll();
     }
 }

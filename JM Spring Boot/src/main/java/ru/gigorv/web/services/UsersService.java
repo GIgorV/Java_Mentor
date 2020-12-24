@@ -1,5 +1,6 @@
 package ru.gigorv.web.services;
 
+import ru.gigorv.web.models.Role;
 import ru.gigorv.web.models.User;
 
 import java.util.List;
@@ -10,5 +11,5 @@ public interface UsersService {
     User findUserById(Long id);
     boolean save(User user);
     boolean deleteUserById(Long id);
-    void deleteUser(User user);
+    void updateUser(User user);
 }
