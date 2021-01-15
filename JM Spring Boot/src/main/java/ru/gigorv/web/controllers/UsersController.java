@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import ru.gigorv.web.models.Role;
 import ru.gigorv.web.models.User;
 import ru.gigorv.web.services.UsersService;
 import ru.gigorv.web.services.RolesService;
@@ -58,6 +59,26 @@ public class UsersController {
     public List<User> update(@RequestBody User editUser) {
         usersService.updateUser(editUser);
         return usersService.getAllUsers();
+    }
+
+    @GetMapping("/admin/findRoleId/{id}")
+    @ResponseBody
+    public Role findRole(@PathVariable Long id) {
+        System.out.println(rolesService.getRoleById(id));
+        return rolesService.getRoleById(id);
+    }
+
+    @GetMapping("/admin/findRoles")
+    @ResponseBody
+    public List<Role> findAllRoles() {
+        return rolesService.getRoles();
+    }
+
+    @GetMapping("/admin/findRoleName/{name}")
+    @ResponseBody
+    public Role findRole(@PathVariable String name) {
+        System.out.println(rolesService.findRoleByRole(name));
+        return rolesService.findRoleByRole(name);
     }
 
     @GetMapping("/user")

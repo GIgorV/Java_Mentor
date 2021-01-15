@@ -138,16 +138,9 @@
                                                             </div>
                                                             <strong>Role</strong>
                                                             <div>
-                                                                <select multiple
-                                                                        class="form-control"
-                                                                        th:value="*{roles}"
-                                                                        name="roles"
-                                                                        id="newRole">
-                                                                    <option
-                                                                            th:each="r:${roles}"
-                                                                            th:value="${r.id}"
-                                                                            th:utext="${r.getRole()}">
-                                                                    </option>
+                                                                <label for="roleSelect"></label>
+                                                                <select multiple class="form-control" id="roleSelect"
+                                                                        aria-multiselectable="true">
                                                                 </select>
                                                             </div>
                                                         </div>
@@ -157,8 +150,7 @@
                        document.getElementById('lastName').value,
                        document.getElementById('age').value,
                        document.getElementById('email').value,
-                       document.getElementById('password').value
-                       // document.getElementById('newRole').value
+                       document.getElementById('password').value,
                        )">Add new user
                                                             </button>
                                                         </div>
@@ -205,7 +197,11 @@
 </section>
 
 <!--<script src="xhr.js"></script>-->
-
+<script src="roles.js"></script>
+<script src="fetch.js"></script>
+<!--<script src="base.js"></script>-->
+<!--<script src="modal.js"></script>-->
+<script src="index.js"></script>
 
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
@@ -216,11 +212,5 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
         integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
         crossorigin="anonymous"></script>
-
-<script src="fetch.js"></script>
-<!--<script src="base.js"></script>-->
-<!--<script src="modal.js"></script>-->
-<script src="index.js"></script>
-
 </body>
 </html>

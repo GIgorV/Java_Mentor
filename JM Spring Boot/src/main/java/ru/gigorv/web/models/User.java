@@ -1,5 +1,7 @@
 package ru.gigorv.web.models;
 
+import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlElementWrapper;
+import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -79,6 +81,15 @@ public class User implements UserDetails {
     }
 
     public void setRoles(Set<Role> roles) {
+        this.roles = roles;
+    }
+
+    public User(String firstName, String lastName, Integer age, String email, String password, Set<Role> roles) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.age = age;
+        this.email = email;
+        this.password = password;
         this.roles = roles;
     }
 }

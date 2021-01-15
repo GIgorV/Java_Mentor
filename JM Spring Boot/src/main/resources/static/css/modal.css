@@ -13,7 +13,7 @@
 }
 
 .vmodal.open .modal-window{
-    transform: translateY(100px);
+    transform: translateY(10px);
 }
 .vmodal.open .modal-overlay{
     background: rgba(0,0,0,.5);

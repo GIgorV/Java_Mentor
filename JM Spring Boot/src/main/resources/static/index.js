@@ -1,10 +1,11 @@
-const $={}
+const $ = {}
 
-Element.prototype.appendAfter = function (element){
+Element.prototype.appendAfter = function (element) {
     element.parentNode.insertBefore(this, element.nextSibling);
 }
 
-function noop(){}
+function noop() {
+}
 
 function _createModalFooter(buttons = []) {
     if (buttons.length === 0) {
@@ -13,7 +14,7 @@ function _createModalFooter(buttons = []) {
     const wrap = document.createElement('div')
     wrap.classList.add('modal-footer')
 
-    buttons.forEach(btn=>{
+    buttons.forEach(btn => {
         const $btn = document.createElement('button')
         $btn.textContent = btn.text
         $btn.classList.add('btn')
@@ -103,6 +104,24 @@ document.addEventListener('click', event => {
     if (btnType === 'edit') {
         console.log(id)
         fetch('admin/findOne/' + id).then(response => response.json()).then(user => {
+            // loadRolesFromUser(user.roles)
+
+            function loadEditRoles() {
+                fetch('admin/findRoles').then(response=>response.json()).then(data=>{
+                    const select = document.getElementById('roleEditSelect');
+                    for(let i=0; i<data.length; i++){
+                        let options = data[i].role
+                        let element = document.createElement('option')
+                        element.textContent = options
+                        element.value = options
+                        element.id = 'i'
+                        select.appendChild(element)
+                    }
+                })
+
+            }
+            loadEditRoles()
+
             editUser.setContent(`
 <div class="form-group text-center"><strong>ID</strong><br>
     <div class="text center">
@@ -128,10 +147,16 @@ document.addEventListener('click', event => {
     <div class="text center">
     <input type="text" class="form-control" id="ePassword" name="password" value=${user.password}>
 </div></div>
+</div class="form-group text-center col-sm-10 offset-sm-1"><strong>Role</strong>
+    <div>
+        <label for="roleEditSelect"></label>
+        <select multiple class="form-control" id="roleEditSelect" aria-multiselectable="true">
+        </select>
+    </div>
+</div>                             
         `)
         })
         editUser.open()
-
 
     } else if (btnType === 'delete') {
         console.log(id)
@@ -166,7 +191,7 @@ document.addEventListener('click', event => {
         })
         delUser.open()
         delBody = id
-            }
+    }
 })
 
 const editUser = $.modal({
@@ -176,6 +201,48 @@ const editUser = $.modal({
     footerButtons: [
         {
             text: 'Обновить', type: 'primary', handler() {
+                const select = document.getElementById("roleEditSelect")
+                let count=0
+                let name
+                let rolesEdit = []
+                for (let j = 0; j < document.getElementById("roleEditSelect").options.length; j++) {
+                    if (select.options[j].selected===true) {
+                        name = select.options[j].value
+                        if (name === 'ROLE_USER') {
+                            rolesEdit = [{
+                                id: 2,
+                                role: 'ROLE_USER',
+                                users: null,
+                                authority: 'ROLE_USER'
+                            }]
+                            count++
+                        } else if (name === 'ROLE_ADMIN') {
+                            rolesEdit = [{
+                                id: 1,
+                                role: 'ROLE_ADMIN',
+                                users: null,
+                                authority: 'ROLE_ADMIN'
+                            }]
+                            count++
+                        }
+                    }
+                }
+                if(count===2){
+                    rolesEdit=[
+                        {
+                            id: 1,
+                            role: 'ROLE_ADMIN',
+                            users: null,
+                            authority: 'ROLE_ADMIN'
+                        },
+                        {
+                            id: 2,
+                            role: 'ROLE_USER',
+                            users: null,
+                            authority: 'ROLE_USER'
+                        },
+                    ]
+                }
                 editBody =
                     {
                         id: document.getElementById('eId').value,
@@ -184,7 +251,10 @@ const editUser = $.modal({
                         age: document.getElementById('eAge').value,
                         email: document.getElementById('eEmail').value,
                         password: document.getElementById('ePassword').value,
+                        roles: rolesEdit,
                     }
+
+                console.log(editBody)
                 const headers = {
                     'Content-Type': 'application/json'
                 }
@@ -192,11 +262,11 @@ const editUser = $.modal({
                     method: 'POST',
                     body: JSON.stringify(editBody),
                     headers: headers
-                }).then(response=>response.json()).then(data=>{
+                }).then(response => response.json()).then(data => {
                     console.log(data)
                     let newUsersList = ''
                     for (let i = 0; i < data.length; i++) {
-                        newUsersList += toHtml(data[i])
+                        newUsersList += toViewAllUsers(data[i])
                     }
                     document.querySelector('#users-list tbody').innerHTML = newUsersList
                 })
@@ -219,11 +289,10 @@ const delUser = $.modal({
         {
             text: 'Удалить', type: 'danger', handler() {
                 console.log(delBody)
-                fetch('/admin/delete/' + delBody).then(response=>response.json()).then(data=>{
-                    console.log(data)
+                fetch('/admin/delete/' + delBody).then(response => response.json()).then(data => {
                     let newUsersList = ''
                     for (let i = 0; i < data.length; i++) {
-                        newUsersList += toHtml(data[i])
+                        newUsersList += toViewAllUsers(data[i])
                     }
                     document.querySelector('#users-list tbody').innerHTML = newUsersList
                 })

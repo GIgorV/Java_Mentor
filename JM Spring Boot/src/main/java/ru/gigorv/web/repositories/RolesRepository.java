@@ -5,4 +5,5 @@ import ru.gigorv.web.models.Role;
 
 
 public interface RolesRepository extends JpaRepository<Role, Long> {
+    Role findRoleByRole(String name);
 }
